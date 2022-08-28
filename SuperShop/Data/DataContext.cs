@@ -12,7 +12,6 @@ namespace SuperShop.Data.DataContext
         public DbSet<Product> Products { get; set; }
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
     }
 }
