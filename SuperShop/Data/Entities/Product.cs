@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace SuperShop.Data.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
         public int Id { get; set; }
-        public Product()
-        {
-            
-        }
+        
         [Required]
         [MaxLength(50, ErrorMessage ="The field {0} can't contain more than {1} characters")]
         public string Name { get; set; }

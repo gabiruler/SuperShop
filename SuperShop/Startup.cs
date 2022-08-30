@@ -32,7 +32,7 @@ namespace SuperShop
                 });
             services.AddControllersWithViews();
             services.AddTransient<SeedDb>();
-            services.AddScoped<IRepository, Repository > ();
+            services.AddScoped<IProductsRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
