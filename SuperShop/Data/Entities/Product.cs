@@ -34,5 +34,17 @@ namespace SuperShop.Data.Entities
 
         public User User { get; set; }
 
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImageUrl))
+                {
+                    return null;
+                }
+                return $"https://localhost:44352{ImageUrl.Substring(1)}";
+            }
+        }
+
     }
 }
