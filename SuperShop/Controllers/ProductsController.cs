@@ -15,18 +15,18 @@ namespace SuperShop.Controllers
     {
         private readonly IProductsRepository _productsRepository;
         private readonly IUserHelper _userHelper;
-        private readonly IImageHelper _imageHelper;
+        private readonly IBlobHelper _blobHelper;
         private readonly IConverterHelper _converterHelper;
 
         public ProductsController(
             IProductsRepository productsRepository,
             IUserHelper userHelper,
-            IImageHelper imageHelper,
+            IBlobHelper blobHelper,
             IConverterHelper converterHelper)
         {
             _productsRepository = productsRepository;
             _userHelper = userHelper;
-            _imageHelper = imageHelper;
+            _blobHelper = blobHelper;
             _converterHelper = converterHelper;
         }
 
@@ -69,13 +69,13 @@ namespace SuperShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var path = string.Empty;
+                Guid imageID = Guid.Empty;
 
                 if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
-                    path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
+                    imageID = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
                 }
-                var product = _converterHelper.ToProduct(model, path, true);
+                var product = _converterHelper.ToProduct(model, imageID, true);
 
 
                 //TODO: Modificar para o user que tiver logado
@@ -121,14 +121,14 @@ namespace SuperShop.Controllers
             {
                 try
                 {
-                   
-                   
-                    var path = model.ImageUrl;
+
+
+                    Guid imageID = model.ImageID;
                     if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
-                        path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
+                        imageID = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
                     }
-                    var product = _converterHelper.ToProduct(model, path, false);
+                    var product = _converterHelper.ToProduct(model, imageID, false);
 
                     product.User = await _userHelper.GetUserByEmailAsync("gabiruler@gmail.com");
 

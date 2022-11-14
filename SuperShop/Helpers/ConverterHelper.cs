@@ -9,12 +9,12 @@ namespace SuperShop.Helpers
 {
     public class ConverterHelper : IConverterHelper
     {
-        public Product ToProduct(ProductViewModel model, string path, bool isNew)
+        public Product ToProduct(ProductViewModel model, Guid imageID, bool isNew)
         {
             return new Product
             {
                 Id = isNew ? 0 : model.Id,
-                ImageUrl = path,
+                ImageID = imageID,
                 IsAvailable = model.IsAvailable,
                 LastPurchase = model.LastPurchase,
                 LastSale = model.LastSale,
@@ -32,7 +32,8 @@ namespace SuperShop.Helpers
                 Id = product.Id,
                 IsAvailable = product.IsAvailable,
                 LastPurchase = product.LastPurchase,
-                ImageUrl = product.ImageUrl,
+                LastSale = product.LastSale,
+                ImageID = product.ImageID,
                 Name = product.Name,
                 Price = product.Price,
                 Stock = product.Stock,
